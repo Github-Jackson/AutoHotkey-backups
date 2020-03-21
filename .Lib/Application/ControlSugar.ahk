@@ -1,0 +1,30 @@
+﻿Reload(){
+	Reload
+}
+AdminRun(){
+	Run *RunAs %A_ScriptFullPath%
+}
+Suspend(){
+	Suspend
+}
+Pause(){
+	Pause
+}
+ExitApp(){
+	ExitApp
+}
+Edit(){
+	Edit
+}
+KeyHistory(){
+	KeyHistory
+}
+ListLines(){
+	ListLines
+}
+ListVars(){
+	ListVars
+}
+ListHotkeys(){
+	ListHotkeys
+}
