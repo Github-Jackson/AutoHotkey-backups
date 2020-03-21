@@ -1,0 +1,27 @@
+I:{Up}
+K:{Down}
+J:{Left}
+L:{Right}
+U:{Home}
+O:{End}
+Y:{PgUp}
+H:{PgDn}
+B:!{Left}
+N:!{Right}
+M:!{Up}
+Enter:{Enter}
+':!{Enter}
+,:!{Esc}
+.:+!{Esc}
+;:{Appskey}
+>+[:{Volume_Up}
+>+]:{Volume_Down}
+>+':{Volume_Up}
+>+;:{Volume_Down}
+>+,:{Media_Prev}
+>+.:{Media_Next}
+>+P:{Media_Play_Pause}
+>+Enter:{Media_Play_Pause}
+/:{Media_Stop}
+>^,:{RControl Down}#{Left}{RControl Up}
+>^.:{RControl Down}#{Right}{RControl Up}
