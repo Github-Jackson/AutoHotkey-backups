@@ -42,7 +42,7 @@
 			return 0
 		}
 		for k,v in StrSplit(e,"&")
-			if(!this.GetState(StrReplace(v,"_",,count))^(count&&1))
+			if(!this.GetState(StrReplace(v,"_",,count))^(Mod(count,2)))
 				return 0
 		return 1
 	}
