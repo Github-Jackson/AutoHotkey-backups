@@ -1,6 +1,2 @@
-﻿Class Dynamic{
-	
-	Class Function{
-		
-	}
-}
+﻿
+MsgBox heihei

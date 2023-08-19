@@ -1,36 +1,37 @@
 ﻿Class Windows extends WindowsPack{
 	__New(title:=""){
 		if(!IsObject(title))
-			return this._Initial(WinGet("List",this.title:=title))
+			return this.Initial(this.match:=new WinMatch(this.title:=title))
+		this.match:=new WinMatch()
 		this.list:=title
 	}
-	_Initial(list){
+	
+	Initial(){
 		this.list:=[]
-		for k,v in list
-			this.list.Push(new Window(v.id?v.id:v))
+		for k,v in this.match.Find()
+			this.list.Push(new Window(k))
 		return this
 	}
-	Exclude(title:="",text:=""){
-		arr:=[]
-		for k,v in this.list {
-			if(title==""){
-				if(StrLen(v.GetTitle()))
-					arr.Push(v)
-			}else{
-				if(!InStr(v.GetTitle(),title))
-					arr.Push(v)
-			}
-		}
-		return new Windows(arr)
+	Exclude(title:=""){
+		; WindowTitleMatchMode not exreg
+		map:=new WinMatch(title).Find()
+		for k,v in this.list
+			if(map.HasKey(v.id))
+				this.list.RemoveAt(k)
+		return this
 	}
 	
 	;Ex
-	Window(index:=""){
-		if(index=="")
-			return this.Window(1)
+	Window(index:=1){
 		return this.list[index]
 	}
 	Processes(){
-		return Processes.Build(this)
+		proces:=new Processes([])
+		map:=new Map()
+		for k,v in this
+			if(!map.HasKey(v.pid))
+				map[v.pid]:=v.Process()
+		proces.list:=map.Values()
+		return proces
 	}
 }

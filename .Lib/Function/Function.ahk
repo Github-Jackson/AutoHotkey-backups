@@ -40,3 +40,6 @@ Class Func{
 		return new Function(p*)
 	}
 }
+Function(fn,params*){
+	return new Function(fn,params*)
+}

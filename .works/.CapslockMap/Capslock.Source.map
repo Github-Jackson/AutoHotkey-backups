@@ -1,4 +1,0 @@
-Enter:{End}{Enter}
-+Enter:{Home}{Enter}{Up}
-D:{Home}+{End}
-+D:{Home}{Home}+{End}{BS}{Del}{End}

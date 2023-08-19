@@ -8,11 +8,8 @@ Class WindowsPack extends List{
 	}
 	
 	Activate(){
-		if(this.title)
-			WinActivate(this.title)
-		else
-			this.list.last.Activate()
-		return this
+		this.last.Activate()
+		return this.last
 	}
 	
 }

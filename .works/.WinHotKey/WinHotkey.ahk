@@ -1,5 +1,7 @@
 ﻿#SingleInstance Force
 #NoTrayIcon
+#UseHook
+SetBatchLines,-1
 
 #Include <Script>
 #Include <File>
@@ -37,6 +39,7 @@ ChangeProcess(){
 	current.IsExist()
 	current.Activate()
 }
+
 
 ;QQ多窗体
 ;进程更新

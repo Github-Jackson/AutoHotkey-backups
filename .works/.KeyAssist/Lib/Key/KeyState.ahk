@@ -1,7 +1,7 @@
 ﻿Class KeyState{
 	static rep:={"<":"L",">":"R","#":"(LWin|RWin)&","!":"Alt&","^":"Ctrl&","+":"Shift&","*":"","~":"","$":""}
 	static keyState:=new KeyState().Sugar()
-	static toggle:={"test":1}
+	static toggle:={}
 	__New(E:=""){
 		this.Set(E)
 	}
@@ -32,6 +32,9 @@
 		return this._GetState(e)
 	}
 	GetState(e){
+		if(e==""){
+			return 1
+		}
 		t:=InStr(e,"@") ? "T":"P",e:=Trim(StrReplace(e,"@"))
 		state:=GetKeyState(e,t)
  

@@ -3,7 +3,7 @@
 		if(id=="A")
 			id:=WinGet("PID","A")
 		this.id:=id
-		this._id:=#(id)
+		this._id:="ahk_pid " id
 		this[""]:={name:"",path:"",pid:"",class:""}
 	}
 	__Get(k){
@@ -27,7 +27,7 @@
 	}
 	;Ex
 	Window(){
-		return new Windows(this._id).Window()
+		return this.Windows().Window()
 	}
 	WaitWindow(s:=""){
 		WinWait(this._id,,s)
@@ -37,7 +37,7 @@
 		return new Windows(this._id)
 	}
 	Processes(){
-		return new Processes(@(this.GetPath))
+		return new Processes(@(this.path))
 	}
 	
 	;Process

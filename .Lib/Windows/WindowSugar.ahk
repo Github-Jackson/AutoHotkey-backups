@@ -9,6 +9,9 @@ $(e){
 @(e){
 	return "ahk_exe " e
 }
+WinTitle(e){
+	return new WinTitle(e).title
+}
 DetectHiddenWindows(e:="On"){
 	DetectHiddenWindows,% e
 }

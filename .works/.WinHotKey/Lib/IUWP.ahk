@@ -4,8 +4,8 @@
 		this.filename:=filename
 		lindex:=InStr(filename,"{"),rindex:=InStr(filename,"}")
 		this.title:=SubStr(filename,lindex+1,rindex?rindex-lindex-1:0)
-		if(!this.title)
-			return new IDirectory(filename)
+		;if(!this.title)
+		;	return new IDirectory(filename)
 		this._Initial(filename)
 	}
 	_Initial(filename){

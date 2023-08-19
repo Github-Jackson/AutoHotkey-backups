@@ -1,36 +1,52 @@
 ﻿;DetectHiddenWindows,DetectHiddenText
-SetBatchLines(){
-	SetBatchLines
+SetBatchLines(e){
+	SetBatchLines,% e
 }
-SetTimer(){
-	
+SetTimer(fn:="",option:="",priority:=0){
+	if(fn=="")
+		SetTimer,,% option,% priority
+	else
+		SetTimer,% fn,% option,% priority
 }
-SetKeyDelay(){
-	
+SetKeyDelay(delay,press,arg*){
+	SetKeyDelay,% delay,% press,% arg[1]
 }
-SetMouseDelay(){
-	
+SetMouseDelay(delay,arg*){
+	SetMouseDelay,% delay,% arg[1]
 }
-SetWinDelay(){
-	
+SetWinDelay(delay){
+	SetWinDelay,% delay
 }
-SetControlDelay(){
-	
+SetControlDelay(delay){
+	SetControlDelay,% delay
 }
-SetStoreCapslockMode(){
+SetStoreCapslockMode(onoff){
+	SetStoreCapslockMode,% onoff
+}
+SetDefaultMouseSpeed(speed){
+	SetDefaultMouseSpeed,% speed
+}
+SetTitleMatchMode(mode){
+	SetTitleMatchMode,% mode
+}
 
+SetSendMode(mode){
+	SendMode,% mode
 }
-SetDefaultMouseSpeed(){
-	
+SetSendLevel(level){
+	SendLevel,% level
+}
+SetInputLevel(level){
+	;#InputLevel,% Application.Congfig.Setting.InputLevel
 }
 
 
-SetCapsLockState(){
-	
+SetCapsLockState(state){
+	SetCapsLockState,% state
 }
-SetNumLockState(){
-	
+SetNumLockState(state){
+	SetNumLockState,% state
 }
-SetScrollLockState(){
-	
+SetScrollLockState(state){
+	SetScrollLockState,% state
 }

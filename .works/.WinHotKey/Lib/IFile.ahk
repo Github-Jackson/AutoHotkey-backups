@@ -2,6 +2,7 @@
 #Include <ISend>
 #Include <ILnk>
 Class IFile{
+	static exReg:="^$"
 	__New(filename){
 		fileInfo:=SplitPath(filename)
 		ext:=StringLower(fileInfo.ext)
@@ -19,7 +20,7 @@ Class IFile{
 	wins{
 		get{
 			if(!this.list.last.wins)
-				this.list.last.wins:=this.list.last.Windows().Exclude()
+				this.list.last.wins:=this.list.last.Windows().Exclude(this.exReg)
 			return this.list.last.wins
 		}
 		set{
@@ -42,7 +43,7 @@ Class IFile{
 	IsNew(){
 		if(!this.list.Length()){
 			this.list:=new Processes(this.title)
-			this.wins:=this.list.last.windows().exclude()
+			this.wins:=this.list.last.windows().Exclude(this.exReg)
 		}
 		WinHotkeyDirector.Current:=this
 		return !this.list.Length()
@@ -51,7 +52,7 @@ Class IFile{
 		if(this.list.Length()==0||forced)
 			this.list.Push(new Process(Run(this.filename)))
 		if(!this.wins.Length())
-			this.wins:=this.list.Last.Windows().Exclude()
+			this.wins:=this.list.Last.Windows().Exclude(this.exReg)
 		this.Activate()
 		return this.wins.Length()
 	}
@@ -62,12 +63,12 @@ Class IFile{
 			return this.IsWinExist()
 		this.list.Pop()
 		if(!this.wins.Length())
-			this.wins:=this.list.last.windows().Exclude()
+			this.wins:=this.list.last.windows().Exclude(this.exReg)
 		return this.IsExist()
 	}
 	IsWinExist(){
 		if(this.wins.Length()==0){
-			this.wins:=this.list.last.windows().Exclude()
+			this.wins:=this.list.last.windows().Exclude(this.exReg)
 			if(this.wins.Length()==0){
 				this.Update()
 				this.list.InsertAt(this.list.Pop())
@@ -88,7 +89,7 @@ Class IFile{
 			if(v.Active()){
 				this.list.Push(this.list.RemoveAt(k))
 				if(!this.wins.Length())
-					this.wins:=this.list.last.windows().Exclude()
+					this.wins:=this.list.last.windows().Exclude(this.exReg)
 				for k,v1 in this.wins
 					if(v1.Active())
 						return this.wins.Push(this.wins.RemoveAt(k))
@@ -97,6 +98,7 @@ Class IFile{
 		return 0
 	}
 	Activate(){
+		WinHotkeyDirector.Current:=this
 		if(this.wins.count()==1)
 			this.wins.Last.Show().Activate()
 		else if(this.wins.Count()>1)
@@ -108,15 +110,7 @@ Class IFile{
 		}
 	}
 	Deactivate(){
-		/*
-		if(this.wins.Count()>1){
-			this.wins.InsertAt(1,this.wins.Pop())
-			this.wins.last.Show().Activate()
-			return
-		}
-		*/
 		this.wins.Last.Bottom().Hide()
-		WinHotkeyDirector.OnHide()
-		WinHotkeyDirector.HideWindows[this.wins.Last.id]:=this.wins.Last
+		WinHotkeyDirector.OnHide(this.wins.Last)	
 	}
 }

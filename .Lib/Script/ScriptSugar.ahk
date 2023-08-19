@@ -4,12 +4,6 @@
 TrayTip(title:="",text:="",s:="",option:=0){
 	TrayTip,% title,% text,% s,% option
 }
-SetTimer(fn:="",option:="",priority:=0){
-	if(fn=="")
-		SetTimer,,% option,% priority
-	else
-		SetTimer,% fn,% option,% priority
-}
 MsgBox(text*){
 	if(!text.Length())
 		MsgBox

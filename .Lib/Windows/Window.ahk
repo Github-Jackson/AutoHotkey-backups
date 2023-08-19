@@ -3,7 +3,7 @@
 		if(id=="A")
 			id:=WinActive("A")
 		this.id:=id
-		this._id:=#(id)
+		this._id:="ahk_id " id
 		this[""]:={name:"",path:"",pid:"",class:""}
 	}
 	__Get(k){
@@ -33,7 +33,7 @@
 		return new Process(this.pid)
 	}
 	Windows(){
-		return new Windows(#(this.GetPID()))
+		return new Windows(#(this.pid))
 	}
 	Control(){
 		MsgBox Undefined

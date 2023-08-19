@@ -47,8 +47,8 @@
 		return 1
 	}
 	Sugar(){
-		"".base.GetStatus:=Func("KeyState.Get").Bind(this)
-		"".base.GetState:=Func("KeyState._GetState").Bind(this)
+		"".base.GetStatus:=KeyState.Get.Bind(this)
+		"".base.GetState:=KeyState._GetState.Bind(this)
 		return this
 	}
 }

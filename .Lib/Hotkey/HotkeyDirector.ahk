@@ -1,6 +1,7 @@
 ﻿Class HotkeyDirector{
 	__New(decor*){
 		this.decor:=new HotkeyDecorator(decor*)
+		this.decor.On(1)
 		this.map:={}
 	}
 	__Get(k){

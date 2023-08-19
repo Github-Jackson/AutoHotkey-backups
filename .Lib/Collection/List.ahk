@@ -1,0 +1,5 @@
+﻿Class Collection{
+	
+	Size(){
+	}
+}

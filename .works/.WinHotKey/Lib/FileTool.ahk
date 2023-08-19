@@ -3,6 +3,7 @@
 #Include <Script>
 Class FileTool{
 	static ext:={}
+	static reg:="\${(.*)}"
 	GetExe(filepath){
 		file:=SplitPath(filepath)
 		if(StringLower(file.ext)=="lnk")
@@ -20,8 +21,7 @@ Class FileTool{
 		return FileTool[ext]:=EnvDeref(cmd)
 	}
 	GetTitle(filepath){
-		lindex:=InStr(filepath,"{"),rindex:=InStr(filepath,"}")
-		title:=SubStr(filepath,lindex+1,rindex?rindex-lindex-1:0)
-		return title " " @(FileTool.GetExe(filepath))
+		RegExMatch(filepath,FileTool.reg,out)
+		return out1 " " @(FileTool.GetExe(filepath))
 	}
 }

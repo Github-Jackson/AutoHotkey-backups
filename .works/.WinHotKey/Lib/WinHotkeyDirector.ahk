@@ -5,19 +5,19 @@ Class WinHotkeyDirector{
 	static director:={}
 	static HideWindows:={}
 	static Current:=[]
+	static latelyWindows:=new Windows([])
 	
 	Build(fileName,ext){
 		key:=this.GetKey(StrReplace(fileName,"." ext))
-		if(this.director.HasKey(key)){
-			test:=this.director[key]
+		key:=this.ReplaceKey(key)
+		if(this.director.HasKey(key))
 			return this.director[key].Push(fileName)
-		}
 		if(InStr(key,Application.Config.Config.ModifierEnd)){
 			arr:=StrSplit(key,Application.Config.Config.ModifierEnd)
 			key:=arr[2]
 			modifier:=arr[1]
 		}
-		key:=this.ReplaceKey(key),modifier:=this.GetModifier(modifier)
+		modifier:=this.GetModifier(modifier)
 		if(!this.director[modifier . key]){
 			try this.director[modifier . key]:=new Hotkey(key,new Execute(filename),modifier)
 			try this.director[modifier . key].New(Application.Config.Config.NewModifier . key,,modifier,Application.Config.Config.New)
@@ -30,9 +30,8 @@ Class WinHotkeyDirector{
 		return e
 	}
 	ReplaceKey(e){
-		for k,v in Application.Config.KeyMap{
+		for k,v in Application.Config.KeyMap
 			e:=StrReplace(e,k,v)
-		}
 		return e
 	}
 	GetModifier(e){
@@ -44,7 +43,49 @@ Class WinHotkeyDirector{
 		for k,v in WinHotkeyDirector.HideWindows
 			try v.Show()
 	}
-	OnHide(){
-		new Windows()[Application.Config.Config.ActivateIndex].Activate()
+	OnHide(win){
+		;SendInput,!{Esc}
+		if(win){
+			WinHotkeyDirector.HideWindows[win.id]:=win
+		}
+		this._OnHideOfWinActivate(win)
+		;this._OnHideOfGetNextWindow(win)
 	}
+	_OnHideOfWinActivate(win){
+		titleMatchMode:=A_TitleMatchMode
+		SetTitleMatchMode, RegEx
+		excludeTitle := "(^$"
+
+		Loop
+		{
+			WinActivate(".{1,}",,excludeTitle ")")
+			newWin:=new Window()
+			if(newWin.GetExStyle()&0x8){
+				excludeTitle := excludeTitle "|" newWin.GetTitle()
+				continue
+			}
+			break
+		}
+		
+		SetTitleMatchMode, % titleMatchMode
+	}
+	_OnHideOfGetNextWindow(win){
+		result := win.id
+		Loop
+		{
+			result := GetNextWindow(result)
+			if(result==0){
+				return
+			}
+			newWin := new Window(result)
+			if(newWin.GetTitle()){
+				newWin.Activate()
+				break
+			}
+		}
+	}
+}
+
+GetNextWindow(hWnd){
+	return DllCall("GetWindow","Ptr",hWnd,"UInt",2)
 }

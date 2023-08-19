@@ -1,4 +1,5 @@
-﻿Class Hotkeys extends HotkeyPack{
+﻿#Include <Function>
+Class Hotkeys extends HotkeyPack{
 	__New(key,decor*){
 		this.key:=key
 		this.list:=new HotkeyDecorator()

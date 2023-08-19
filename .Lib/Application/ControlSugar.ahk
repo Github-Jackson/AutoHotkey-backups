@@ -1,9 +1,6 @@
 ﻿Reload(){
 	Reload
 }
-AdminRun(){
-	Run *RunAs %A_ScriptFullPath%
-}
 Suspend(){
 	Suspend
 }

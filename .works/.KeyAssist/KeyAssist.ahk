@@ -16,8 +16,6 @@ $main(){
 	}
 	SetWorkingDir % Application.Config.Config.Directory
 
-	list:=[]
-
 	loop,Files,*,D 
 	{
 		loop,Files, %A_LoopFileFullPath%\*.ini,R
@@ -45,5 +43,4 @@ Class Success{
 	Call(){
 		Send % this.out
 	}
-
 }
