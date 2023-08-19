@@ -1,20 +1,43 @@
 ﻿#NoEnv
-;#NoTrayIcon
+#NoTrayIcon
 #SingleInstance Force
+#UseHook
 
 SetStoreCapslockMode,off
-SendMode Input
+SetTitleMatchMode,RegEx
 
-#Include <KeyMap>
 #Include <Application>
-;扩展功能
-;根据文件夹限定按键映射生效窗体
+#Include <KeyMap>
+#Include <InI>
+
 $main(){
-	loop,Files,*.ini,R 
-		new KeyMap(new InIReader(A_LoopFilePath,StrReplace(A_LoopFileName,"." A_LoopFileExt)))
-	for k,v in KeyMap.Modifier
-		v.OnSuccess(new Success(k))
+	if(Application.Config.Config.LongMappingDetectionDelay){
+		KeyMap.LongMappingDetectionDelay := Application.Config.Config.LongMappingDetectionDelay
+	}
+	SetWorkingDir % Application.Config.Config.Directory
+
+	list:=[]
+
+	loop,Files,*,D 
+	{
+		loop,Files, %A_LoopFileFullPath%\*.ini,R
+		{
+			new KeyMap(A_LoopFileFullPath)
+		}
+	}
+	loop,Files,*.ini 
+	{
+		new KeyMap(A_LoopFileFullPath)
+	}
+
+	for k,v in KeyMap.Modifier{
+		for k,v in v{
+			v.OnSuccess(new Success(k))
+		}
+	}
 }
+$main()
+
 Class Success{
 	__New(key){
 		this.out:=Application.Config.Modifier[SubStr(key,2,StrLen(key)-4)]
@@ -22,5 +45,5 @@ Class Success{
 	Call(){
 		Send % this.out
 	}
+
 }
-$main()
